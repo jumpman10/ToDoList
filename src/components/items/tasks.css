@@ -1,0 +1,10 @@
+.container-tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  background-color: var(--primary-color);
+  height: 100%;
+  position: relative;
+}

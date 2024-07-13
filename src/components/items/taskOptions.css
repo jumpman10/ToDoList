@@ -1,0 +1,80 @@
+.tasks-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 8%;
+  background-color: var(--primary-color);
+}
+.tasks-header h3 {
+  color: var(--secondary-text-color);
+}
+.create-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 100%;
+}
+.create-button-container button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+.order-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 40%;
+  height: 100%;
+}
+.order-container button {
+  border-radius: 0px;
+  border-bottom: white solid 1px;
+  padding: 3px;
+}
+.order-container button:focus,
+.order-container button:focus-visible {
+  outline: none;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  border-radius: 2px;
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 100%;
+}
+.search-container input {
+  background-color: var(--secondary-color);
+  color: black;
+  width: 70%;
+  padding-inline: 2px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .tasks-header {
+    width: 100%;
+    height: 20%;
+    flex-direction: column-reverse;
+  }
+  .create-button-container {
+    height: 30%;
+    width: 100%;
+  }
+  .order-container {
+    height: 33%;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .search-container {
+    height: 33%;
+    width: 100%;
+  }
+  .order-container button {
+    font-size: 0.8em;
+  }
+  .create-button-container button {
+    padding-block: 1px;
+  }
+}
