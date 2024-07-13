@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {Home} from './pages';
+import {Home, Login} from './pages';
 import './App.css';
 import {AppContext} from './context/AppProvider';
 import {Toggle} from './components/buttons/Toggle';
@@ -13,16 +13,13 @@ const App = () => {
         <div className="logo-img"></div>
         <Toggle isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
         <div className="auth">
-          <div className="user">
-            <h2>En Línea</h2>
-            <div className="activeUser" />
-          </div>
           <button>Salir</button>
         </div>
       </header>
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </main>
       <footer></footer>

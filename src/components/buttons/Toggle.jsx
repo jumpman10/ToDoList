@@ -1,6 +1,6 @@
 import './toggle.css';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 export const Toggle = ({handleChange, isChecked}) => {
   return (
     <div className="toggle-container">
@@ -14,4 +14,9 @@ export const Toggle = ({handleChange, isChecked}) => {
       <label htmlFor="check"></label>
     </div>
   );
+};
+
+Toggle.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  isChecked: PropTypes.bool.isRequired,
 };

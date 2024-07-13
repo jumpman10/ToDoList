@@ -60,17 +60,11 @@ header {
   justify-content: flex-end;
   width: 50%;
   height: 50px;
-  padding-inline: 40px;
+  padding-inline: 5%;
 }
 .activeUser {
   width: 10px;
   height: 10px;
   border-radius: 10px;
   background-color: green;
-}
-.user {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  margin-right: 15px;
 }

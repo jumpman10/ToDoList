@@ -1,0 +1,14 @@
+.delete-btn {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  padding-inline: 0px;
+  padding-block: 3px;
+  width: 70px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .delete-btn {
+    padding-block: 0.7px;
+    padding-inline: 5px;
+  }
+}

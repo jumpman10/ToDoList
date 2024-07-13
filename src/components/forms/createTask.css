@@ -48,7 +48,7 @@
 }
 @media only screen and (max-device-width: 480px) {
   .create-container {
-    height: 300px;
+    height: 320px;
   }
   .checks {
     width: 100%;

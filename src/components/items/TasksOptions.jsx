@@ -1,5 +1,8 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import './taskOptions.css';
+import PropTypes from 'prop-types';
+
 export const TasksOptions = ({
   sortByDate,
   sortAlphabetically,
@@ -35,4 +38,13 @@ export const TasksOptions = ({
       </div>
     </div>
   );
+};
+
+TasksOptions.propTypes = {
+  sortByDate: PropTypes.func.isRequired,
+  sortAlphabetically: PropTypes.func.isRequired,
+  searchTerm: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  filterByTaskState: PropTypes.func.isRequired,
+  setNewTaskActive: PropTypes.func.isRequired,
 };

@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import React, {useState} from 'react';
 import './createTask.css';
+import PropTypes from 'prop-types';
 export const CreatTask = ({createTask, setNewTaskActive}) => {
   const [formData, setFormData] = useState({
     title: '',
@@ -113,4 +115,9 @@ export const CreatTask = ({createTask, setNewTaskActive}) => {
       </form>
     </div>
   );
+};
+
+CreatTask.propTypes = {
+  createTask: PropTypes.func.isRequired,
+  setNewTaskActive: PropTypes.func.isRequired,
 };

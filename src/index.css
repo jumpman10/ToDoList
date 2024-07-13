@@ -11,7 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 :root {
-  --primary-text-color: rgba(0, 0, 0, 0.87);
+  --primary-text-color: rgb(255, 255, 255);
   --background-color: #ffffff;
   --secondary-background-color: #283452;
   --secondary-text-color: rgb(255, 255, 255);
@@ -66,10 +66,6 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 input {
   background-color: var(--background-color);
   border: none;
