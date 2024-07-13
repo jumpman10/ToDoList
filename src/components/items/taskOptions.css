@@ -34,7 +34,7 @@
 .order-container button:focus,
 .order-container button:focus-visible {
   outline: none;
-  background-color: var(--background-color);
+  background-color: white;
   color: var(--primary-color);
   border-radius: 2px;
 }

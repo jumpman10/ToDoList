@@ -2,7 +2,9 @@
 import React, {useState} from 'react';
 import './styles/login.css';
 import useLocalStorage from 'use-local-storage';
+import {useLoginMutation} from '../slices/loginApi';
 const Login = () => {
+  const [login, {isLoading}] = useLoginMutation();
   const [isDark] = useLocalStorage('isDark', false);
   const [formData, setFormData] = useState({
     email: '',
@@ -14,12 +16,13 @@ const Login = () => {
       taskState: e.target.value,
     });
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
       alert('Todos los campos son obligatorios');
       return;
     }
+    await login(formData);
   };
   return (
     <form
@@ -39,7 +42,9 @@ const Login = () => {
           onChange={handletaskStateChange}
           type="password"
         />
-        <button>Ingresar</button>
+        <button type="submit" disabled={isLoading}>
+          Ingresar
+        </button>
       </div>
     </form>
   );

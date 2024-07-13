@@ -75,16 +75,25 @@ input {
 input:focus {
   outline: none;
 }
+input[type='date']::-webkit-calendar-picker-indicator {
+  display: none;
+}
+input[type='date']::-moz-calendar-picker-indicator {
+  display: none;
+}
+input[type='date']::-ms-clear {
+  display: none;
+}
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: var(--primary-text-color);
     background-color: #ffffff;
   }
   a:hover {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--primary-color);
   }
 }
 

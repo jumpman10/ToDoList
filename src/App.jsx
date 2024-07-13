@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Home, Login} from './pages';
 import './App.css';
-import {AppContext} from './context/AppProvider';
 import {Toggle} from './components/buttons/Toggle';
 import useLocalStorage from 'use-local-storage';
 const App = () => {
