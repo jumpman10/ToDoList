@@ -4,12 +4,14 @@ import useLocalStorage from 'use-local-storage';
 import './admin.css';
 import {TasksOptions} from '../items/TasksOptions';
 import {CreatTask} from '../forms/CreatTask';
+import {ModalConfirm} from '../items/ModalConfirm';
 const Admin = () => {
   const [isDark] = useLocalStorage('isDark', false);
   const [searchTerm, setSearchTerm] = useState('');
   const [newTaskActive, setNewTaskActive] = useState(false);
   const [editTaskActive, setEditTaskActive] = useState(false);
   const [editId, setEditId] = useState('');
+  const [eliminateModal, setEliminateModal] = useState(false);
   const [data, setData] = useState([
     {
       title: 'Tarea numero 1',
@@ -79,6 +81,15 @@ const Admin = () => {
         filterByTaskState={filterByTaskState}
         setNewTaskActive={setNewTaskActive}
       />
+      {eliminateModal && (
+        <ModalConfirm
+          title="Eliminar"
+          text="¿Desea eliminar esta tarea?"
+          closeModal={setEliminateModal}
+          confirmFunction={setEliminateModal}
+        />
+      )}
+
       <div className="tasks-container">
         <div className="tasks">
           {newTaskActive && (
@@ -135,7 +146,7 @@ const Admin = () => {
                     {!editTaskActive && !newTaskActive && (
                       <button
                         className="delete-btn"
-                        onClick={() => edit(e.title)}>
+                        onClick={() => setEliminateModal(true)}>
                         Eliminar
                       </button>
                     )}
@@ -176,7 +187,7 @@ const Admin = () => {
                 {editTaskActive && editId === e.title && (
                   <div className="create-buttons-container">
                     <button className="create-button" type="submit">
-                      Crear
+                      Editar
                     </button>
                     <button
                       className="exit-create-button"

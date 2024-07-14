@@ -2,7 +2,9 @@
 import React, {useState} from 'react';
 import './createTask.css';
 import PropTypes from 'prop-types';
+import {useCreateTaskMutation} from '../../slices/todoApi';
 export const CreatTask = ({createTask, setNewTaskActive}) => {
+  const [createNewTask] = useCreateTaskMutation();
   const [formData, setFormData] = useState({
     title: '',
     date: '',
@@ -34,6 +36,7 @@ export const CreatTask = ({createTask, setNewTaskActive}) => {
       return;
     }
     createTask(formData);
+    createNewTask(formData);
     setNewTaskActive(false);
   };
   return (

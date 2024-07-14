@@ -3,7 +3,7 @@ import React from 'react';
 import User from '../components/users/User';
 import Admin from '../components/users/Admin';
 const Home = () => {
-  return <User />;
+  return <Admin />;
 };
 
 export default Home;

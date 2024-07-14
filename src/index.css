@@ -13,6 +13,7 @@
 :root {
   --primary-text-color: rgb(255, 255, 255);
   --background-color: #ffffff;
+  --background-color-opacity: rgba(187, 187, 187, 0.4);
   --secondary-background-color: #283452;
   --secondary-text-color: rgb(255, 255, 255);
   --secondary-color: rgb(255, 255, 255);
@@ -107,6 +108,7 @@ input[type='date']::-ms-clear {
 
 [data-theme='dark'] {
   --background-color: #283452;
+  --background-color-opacity: rgba(40, 52, 82, 0.4);
   --secondary-background-color: #ffffff;
   --primary-text-color: #ffffff;
   --toggle-bg: #212b44;

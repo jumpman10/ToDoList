@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const loginSlice = createSlice({
   name: 'login',
@@ -22,5 +22,5 @@ const loginSlice = createSlice({
   },
 });
 
-export const {setUser, setLoading, setError} = loginSlice.actions;
+export const { setUser, setLoading, setError } = loginSlice.actions;
 export default loginSlice.reducer;
