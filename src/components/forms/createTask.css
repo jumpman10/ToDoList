@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   width: 95%;
-  height: 270px;
+  height: 130px;
   margin: 18px auto;
   border: 2px var(--secondary-background-color);
   border-style: dashed;
@@ -16,10 +16,9 @@
 }
 .checks {
   width: 30%;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  margin-block: 10px;
 }
 .checks div {
   width: 50%;
@@ -34,17 +33,56 @@
   color: var(--secondary-text-color);
 }
 .create-buttons-container {
-  width: 100%;
   display: flex;
   flex-direction: row;
+  position: absolute;
+  bottom: -100%;
 }
 .create-button {
   margin-top: 10px;
 }
 .exit-create-button {
   margin-top: 10px;
-  background-color: red;
+  background-color: rgb(97, 0, 0);
   margin-left: 5px;
+}
+.task-create-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+}
+.task-create-description {
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  height: 100%;
+}
+.description-create {
+  display: flex;
+  width: 70%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.description-create textarea {
+  width: 97%;
+  height: 80%;
+  resize: none;
+  padding: 5px;
+  border: none;
+  font-size: 0.9em;
+  text-align: justify;
+  background-color: transparent;
+  font-style: italic;
+}
+.date-create {
+  width: 30%;
+  text-align: center;
+  color: white;
+  background-color: transparent;
 }
 @media only screen and (max-device-width: 480px) {
   .create-container {

@@ -1,9 +1,11 @@
 .delete-btn {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+  background-color: rgb(97, 0, 0);
+  color: white;
   padding-inline: 0px;
-  padding-block: 3px;
-  width: 70px;
+  padding-block: 0px;
+  width: 50%;
+  height: 40%;
+  font-size: 0.7em;
 }
 
 @media only screen and (max-device-width: 480px) {

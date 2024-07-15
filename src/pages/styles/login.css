@@ -34,3 +34,15 @@
   background-color: var(--background-color);
   color: var(--secondary-background-color);
 }
+.loading {
+  width: 100%;
+  height: calc(100vh - 50px);
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary-background-color);
+  z-index: 100;
+  position: absolute;
+}

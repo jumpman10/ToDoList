@@ -20,12 +20,10 @@ export const TasksOptions = ({
         <h3>Orden por :</h3>
         <button onClick={() => sortAlphabetically()}>A-Z</button>
         <button onClick={() => sortByDate()}>Fecha</button>
-        <button onClick={() => filterByTaskState('completada')}>
+        <button onClick={() => filterByTaskState('completed')}>
           Completadas
         </button>
-        <button onClick={() => filterByTaskState('pendiente')}>
-          Pendientes
-        </button>
+        <button onClick={() => filterByTaskState('pending')}>Pendientes</button>
         <button onClick={() => filterByTaskState('')}>Todas</button>
       </div>
       <div className="search-container">
@@ -43,7 +41,7 @@ export const TasksOptions = ({
 TasksOptions.propTypes = {
   sortByDate: PropTypes.func.isRequired,
   sortAlphabetically: PropTypes.func.isRequired,
-  searchTerm: PropTypes.func.isRequired,
+  searchTerm: PropTypes.string.isRequired,
   handleSearch: PropTypes.func.isRequired,
   filterByTaskState: PropTypes.func.isRequired,
   setNewTaskActive: PropTypes.func.isRequired,

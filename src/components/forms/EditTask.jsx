@@ -1,15 +1,15 @@
-// eslint-disable-next-line no-unused-vars
-import React, {useState} from 'react';
-import './createTask.css';
+import {useState} from 'react';
+import {useEditTaskMutation} from '../../slices/todoApi';
 import PropTypes from 'prop-types';
-import {useCreateTaskMutation} from '../../slices/todoApi';
-export const CreatTask = ({createTask, setNewTaskActive}) => {
-  const [createNewTask] = useCreateTaskMutation();
+
+export const EditTask = ({taskbyId, setEditTaskActive, setEditId, idTask}) => {
+  const [editTask, {error}] = useEditTaskMutation();
   const [formData, setFormData] = useState({
-    title: '',
-    expiration_date: '',
-    status: 'pending',
-    description: '',
+    title: taskbyId.title,
+    createdAt: taskbyId.createdAt,
+    status: taskbyId.status,
+    description: taskbyId.description,
+    expiration_date: taskbyId.expiration_date,
   });
   const handleChange = e => {
     const {name, value} = e.target;
@@ -18,31 +18,33 @@ export const CreatTask = ({createTask, setNewTaskActive}) => {
       [name]: value,
     });
   };
-  const handlestatusChange = e => {
-    setFormData({
-      ...formData,
-      status: e.target.value,
-    });
-  };
   const handleSubmit = e => {
     e.preventDefault();
     if (
       !formData.title ||
-      !formData.expiration_date ||
+      !formData.createdAt ||
       !formData.description ||
       !formData.status
     ) {
       alert('Todos los campos son obligatorios');
       return;
     }
-    createTask();
-    createNewTask(formData);
-    setNewTaskActive(false);
+    try {
+      editTask({obj: formData, id: idTask});
+      setEditTaskActive(false);
+      setEditId('');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  console.log(error);
+  const close = () => {
+    setEditTaskActive(false);
+    setEditId('');
   };
   return (
-    <div className="create-container">
-      <form
-        onSubmit={handleSubmit}
+    <form onSubmit={handleSubmit} className="create-container">
+      <div
         className="task"
         style={{
           backgroundColor:
@@ -54,32 +56,26 @@ export const CreatTask = ({createTask, setNewTaskActive}) => {
         <div className="task-create-title">
           <input
             className="title"
-            type="text"
-            name="title"
             value={formData.title}
+            name="title"
+            type="text"
             onChange={handleChange}
-            placeholder="Ingresa el título"
-            required
           />
         </div>
         <div className="task-create-description">
           <div className="description-create">
             <textarea
-              name="description"
               value={formData.description}
+              name="description"
               onChange={handleChange}
-              required
-              placeholder="Ingresa una descripción"
-              maxLength={80}
             />
           </div>
           <input
             className="date-create"
+            value={formData.createdAt.slice(0, 10)}
+            name="createdAt"
             type="date"
-            name="expiration_date"
-            value={formData.expiration_date}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="checks">
@@ -89,9 +85,8 @@ export const CreatTask = ({createTask, setNewTaskActive}) => {
               type="radio"
               name="status"
               value="pending"
-              checked={formData.status === 'pending'}
-              onChange={handlestatusChange}
               required
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -100,28 +95,34 @@ export const CreatTask = ({createTask, setNewTaskActive}) => {
               type="radio"
               name="status"
               value="completed"
-              checked={formData.status === 'completed'}
-              onChange={handlestatusChange}
               required
+              onChange={handleChange}
             />
           </div>
         </div>
         <div className="create-buttons-container">
           <button className="create-button" type="submit">
-            Crear
+            Editar
           </button>
-          <button
-            className="exit-create-button"
-            onClick={() => setNewTaskActive(false)}>
+          <button className="exit-create-button" onClick={() => close()}>
             Salir
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 
-CreatTask.propTypes = {
-  createTask: PropTypes.func.isRequired,
-  setNewTaskActive: PropTypes.func.isRequired,
+EditTask.propTypes = {
+  taskbyId: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    expiration_date: PropTypes.string.isRequired,
+  }),
+  setEditTaskActive: PropTypes.func.isRequired,
+  setEditId: PropTypes.func.isRequired,
+  idTask: PropTypes.number.isRequired,
 };

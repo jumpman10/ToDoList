@@ -5,71 +5,51 @@ import './admin.css';
 import {TasksOptions} from '../items/TasksOptions';
 import {CreatTask} from '../forms/CreatTask';
 import {ModalConfirm} from '../items/ModalConfirm';
+import {useFetchTasksQuery} from '../../slices/todoApi';
+import {EditTask} from '../forms/EditTask';
 const Admin = () => {
   const [isDark] = useLocalStorage('isDark', false);
   const [searchTerm, setSearchTerm] = useState('');
+  const {data: tasks, isLoading} = useFetchTasksQuery();
   const [newTaskActive, setNewTaskActive] = useState(false);
   const [editTaskActive, setEditTaskActive] = useState(false);
-  const [editId, setEditId] = useState('');
   const [eliminateModal, setEliminateModal] = useState(false);
-  const [data, setData] = useState([
-    {
-      title: 'Tarea numero 1',
-      date: '2024-04-20',
-      taskState: 'pendiente',
-      description:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-    },
-    {
-      title: 'Examinar casa',
-      date: '2023-03-26',
-      taskState: 'completada',
-      description:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-    },
-    {
-      title: 'Quitar margenes del card',
-      date: '2022-03-15',
-      taskState: 'pendiente',
-      description:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type s',
-    },
-  ]);
+  const [editId, setEditId] = useState('');
   const [filterState, setFilterState] = useState('');
   const handleSearch = event => {
     setSearchTerm(event.target.value);
   };
-  const sortAlphabetically = () => {
-    const sortedData = [...data].sort((a, b) => a.title.localeCompare(b.title));
-    setData(sortedData);
-  };
-  const sortByDate = () => {
-    const sortedData = [...data].sort(
-      (a, b) => new Date(b.date) - new Date(a.date),
-    );
-    setData(sortedData);
-  };
+
   const filterByTaskState = state => {
     setFilterState(state);
   };
-  const filteredData = data.filter(item => {
+  const filteredData = tasks?.filter(item => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const matchesSearchTerm =
-      item.title.toLowerCase().startsWith(lowerCaseSearchTerm) ||
-      item.date.includes(searchTerm);
-    const matchesTaskState = filterState
-      ? item.taskState === filterState
-      : true;
+      item?.title.toLowerCase().startsWith(lowerCaseSearchTerm) ||
+      item?.createdAt.includes(searchTerm);
+    const matchesTaskState = filterState ? item.status === filterState : true;
     return matchesSearchTerm && matchesTaskState;
   });
-  const createTask = formData => {
+  const sortAlphabetically = () => {
+    const sortedData = [...filteredData].sort((a, b) =>
+      a.title.localeCompare(b.title),
+    );
+    filteredData.push(sortedData);
+  };
+  const sortByDate = () => {
+    const sortedData = filteredData.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+    );
+    filteredData.push(sortedData);
+  };
+  const createTask = () => {
     setNewTaskActive(false);
-    data.unshift(formData);
     console.log('hola');
   };
-  const edit = e => {
-    setEditId(e);
+  const edit = id => {
     setEditTaskActive(true);
+    setEditId(id);
   };
   return (
     <div className="container" data-theme={isDark ? 'dark' : 'light'}>
@@ -98,107 +78,78 @@ const Admin = () => {
               setNewTaskActive={setNewTaskActive}
             />
           )}
-          {filteredData.map((e, i) => (
-            <div
-              key={i}
-              className={
-                editTaskActive && editId === e.title
-                  ? 'create-container'
-                  : 'edit-task'
-              }>
-              <div
-                className="task"
-                style={{
-                  backgroundColor:
-                    e.taskState === 'pendiente'
-                      ? 'var(--inprocess-color)'
-                      : 'var(--complete-color)',
-                  margin: '15px auto',
-                }}>
-                <div className="task-title">
-                  <input
-                    className="title"
-                    value={e.title}
-                    type="text"
-                    disabled={
-                      editTaskActive && editId === e.title ? false : true
-                    }
+          {!isLoading ? (
+            filteredData.map((e, i) => (
+              <>
+                {editTaskActive && editId === e.id && (
+                  <EditTask
+                    setEditTaskActive={setEditTaskActive}
+                    taskbyId={e}
+                    idTask={editId}
+                    setEditId={setEditId}
                   />
-                  <input
-                    className="date"
-                    value={e.date}
-                    name="trip-start"
-                    type="date"
-                    disabled={
-                      editTaskActive && editId === e.title ? false : true
-                    }
-                  />
-                </div>
-                <div className="task-description">
-                  <div className="edit-area">
-                    {!editTaskActive && !newTaskActive && (
-                      <button
-                        className="edit-btn"
-                        onClick={() => edit(e.title)}>
-                        Editar
-                      </button>
-                    )}
-                    {!editTaskActive && !newTaskActive && (
-                      <button
-                        className="delete-btn"
-                        onClick={() => setEliminateModal(true)}>
-                        Eliminar
-                      </button>
-                    )}
-                  </div>
-                  <div className="description">
-                    <textarea
-                      value={e.description}
-                      disabled={
-                        editTaskActive && editId === e.title ? false : true
-                      }
-                    />
-                  </div>
-                  {editTaskActive && editId === e.title ? (
-                    <div className="checks">
-                      <div>
-                        <h3>Pendiente</h3>
-                        <input
-                          type="radio"
-                          name="taskState"
-                          value="pendiente"
-                          required
+                )}
+                <div key={i} className="edit-task">
+                  <div
+                    className="task"
+                    style={{
+                      backgroundColor:
+                        e.status === 'pending'
+                          ? 'var(--inprocess-color)'
+                          : 'var(--complete-color)',
+                      margin: '15px auto',
+                    }}>
+                    <div className="task-title">
+                      <h1 className="title">{e.title}</h1>
+                    </div>
+                    <div className="task-description">
+                      <div className="description">
+                        <textarea
+                          value={e.description}
+                          name="description"
+                          disabled
                         />
                       </div>
-                      <div>
-                        <h3>Completada</h3>
-                        <input
-                          type="radio"
-                          name="taskState"
-                          value="completada"
-                          required
-                        />
+                      <input
+                        className="date"
+                        value={e.createdAt.slice(0, 10)}
+                        name="createdAt"
+                        type="date"
+                        disabled
+                      />
+                      <input
+                        className="date"
+                        value={e.expiration_date.slice(0, 10)}
+                        name="createdAt"
+                        type="date"
+                        disabled
+                      />
+                      <div className="task-userdata">
+                        <h3>{e.user.name}</h3>
+                      </div>
+                      {e.status === 'pending' ? (
+                        <h3 className="taskState">Pendiente</h3>
+                      ) : (
+                        <h3 className="taskState">Completada</h3>
+                      )}
+                      <div className="edit-area">
+                        <button className="edit-btn" onClick={() => edit(e.id)}>
+                          Editar
+                        </button>
+                        <button
+                          className="delete-btn"
+                          onClick={() => setEliminateModal(true)}>
+                          Eliminar
+                        </button>
                       </div>
                     </div>
-                  ) : (
-                    <h1 className="taskState">{e.taskState}</h1>
-                  )}
-                </div>
-                {editTaskActive && editId === e.title && (
-                  <div className="create-buttons-container">
-                    <button className="create-button" type="submit">
-                      Editar
-                    </button>
-                    <button
-                      className="exit-create-button"
-                      onClick={() => setEditTaskActive(false)}>
-                      Salir
-                    </button>
                   </div>
-                )}
-              </div>
-            </div>
-          ))}
+                </div>
+              </>
+            ))
+          ) : (
+            <div className="loading"> </div>
+          )}
         </div>
       </div>
     </div>

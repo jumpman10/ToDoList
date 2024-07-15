@@ -12,8 +12,8 @@
 }
 .tasks-container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   width: 100%;
   height: 92%;
@@ -26,9 +26,10 @@
   overflow-x: hidden;
 }
 .task {
+  display: flex;
+  flex-direction: row;
   width: 95%;
-  height: 190px;
-  background-color: var(--background-color);
+  height: 50px;
   border-radius: 8px;
   border-bottom-right-radius: 50px;
   border-top-left-radius: 50px;
@@ -43,70 +44,79 @@
 .task-title {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 25%;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 100%;
 }
 .edit-btn {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+  background-color: grey;
+  color: white;
   padding-inline: 0px;
-  padding-block: 3px;
-  width: 70px;
+  padding-block: 0px;
+  width: 50%;
+  height: 40%;
+  font-size: 0.7em;
 }
 .title {
-  text-align: left;
-  width: 80%;
-  padding-inline: 40px;
-  padding-block: 5px;
-  font-size: 1.8em;
+  text-align: center;
+  width: 100%;
+  font-size: 1em;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid var(--secondary-text-color);
-  font-style: italic;
+  font-weight: 600;
 }
 .title:focus {
   border: none;
   border-bottom: 1px solid var(--secondary-text-color);
 }
 .date {
+  width: 10%;
   text-align: center;
-  padding-inline: 10px;
-  padding-block: 5px;
-  background-color: rgb(48, 48, 48);
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
   color: white;
-  box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.23);
-  -webkit-box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.23);
-  -moz-box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.23);
+  background-color: transparent;
 }
 .task-description {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 75%;
+  width: 80%;
+  height: 100%;
 }
 .edit-area {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  width: 15%;
+  width: 20%;
   height: 100%;
 }
 .taskState {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 10%;
   height: 100%;
   text-transform: capitalize;
   color: var(--secondary-text-color);
   font-weight: bold;
 }
+.task-userdata {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 100%;
+  color: var(--secondary-text-color);
+}
+.task-userdata h2,
+.task-userdata h3 {
+  margin-block: 5px;
+  font-style: italic;
+}
 .description {
   display: flex;
-  width: 70%;
+  width: 35%;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -115,12 +125,12 @@
   width: 97%;
   height: 80%;
   resize: none;
-  background-color: transparent;
   padding: 5px;
   border: none;
   font-size: 0.9em;
-  font-weight: 600;
   text-align: justify;
+  background-color: transparent;
+  font-style: italic;
 }
 .description textarea::placeholder,
 .task-title input::placeholder {
@@ -139,8 +149,8 @@
   justify-content: center;
   align-items: center;
   width: 95%;
-  height: 190px;
-  margin: 18px auto;
+  height: 50px;
+  margin: 10px auto;
 }
 @media only screen and (max-device-width: 480px) {
   .tasks-container {
