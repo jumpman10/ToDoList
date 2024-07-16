@@ -61,11 +61,7 @@ const App = () => {
           <Route
             path="/users"
             element={
-              token ? (
-                <Users user={user} token={token} isDark={isDark} />
-              ) : (
-                <Navigate to="/login" />
-              )
+              token ? <Users isDark={isDark} /> : <Navigate to="/login" />
             }
           />
         </Routes>

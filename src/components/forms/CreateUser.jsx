@@ -5,6 +5,7 @@ import {useCreateUserMutation} from '../../slices/usersApi';
 
 export const CreateUser = ({setNewUserActive}) => {
   const [createUser, {isLoading}] = useCreateUserMutation();
+  const [isErrorCreate, setIsErrorCreate] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,25 +27,28 @@ export const CreateUser = ({setNewUserActive}) => {
       !formData.email ||
       !formData.type ||
       !formData.password ||
-      (!formData.confirmPassword &&
-        formData.password !== formData.confirmPassword)
+      !formData.confirmPassword
     ) {
       alert('Todos los campos son obligatorios');
       return;
     }
-    try {
-      createUser({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        type: formData.type,
-      });
-      if (!isLoading) {
-        alert('Creaste un nuevo usuario!');
-        setNewUserActive(false);
+    if (formData.password === formData.confirmPassword) {
+      try {
+        createUser({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          type: formData.type,
+        });
+        if (!isLoading) {
+          alert('Creaste un nuevo usuario!');
+          setNewUserActive(false);
+        }
+      } catch (error) {
+        alert('Algo falló intentalo nuevamente', error);
       }
-    } catch (error) {
-      alert('Algo falló intentalo nuevamente', error);
+    } else {
+      setIsErrorCreate(true);
     }
   };
   const close = () => {
@@ -102,6 +106,18 @@ export const CreateUser = ({setNewUserActive}) => {
             onChange={handleChange}
           />
         </div>
+        {isErrorCreate && (
+          <span
+            style={{
+              color: 'red',
+              width: '90%',
+              fontSize: '0.8em',
+              textAlign: 'center',
+              paddingBlock: 13,
+            }}>
+            Las contraseñas no coinciden
+          </span>
+        )}
         <div className="create-type">
           <h3>Tipo de cuenta</h3>
           <div className="types">

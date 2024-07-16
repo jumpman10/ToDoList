@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
 import './taskOptions.css';
 import PropTypes from 'prop-types';
 
@@ -8,6 +6,7 @@ export const TasksOptions = ({
   handleSearch,
   filterByTaskState,
   setNewTaskActive,
+  type,
 }) => {
   return (
     <div className="tasks-header">
@@ -16,10 +15,24 @@ export const TasksOptions = ({
       </div>
       <div className="order-container">
         <h3>Orden por :</h3>
-        <button onClick={() => filterByTaskState('completed')}>
-          Completadas
-        </button>
-        <button onClick={() => filterByTaskState('pending')}>Pendientes</button>
+        {type === 'users' ? (
+          <button onClick={() => filterByTaskState('admin')}>
+            Administradores
+          </button>
+        ) : (
+          <button onClick={() => filterByTaskState('completed')}>
+            Completadas
+          </button>
+        )}
+        {type === 'users' ? (
+          <button onClick={() => filterByTaskState('regular')}>
+            Regulares
+          </button>
+        ) : (
+          <button onClick={() => filterByTaskState('pending')}>
+            Pendientes
+          </button>
+        )}
         <button onClick={() => filterByTaskState('')}>Todas</button>
       </div>
       <div className="search-container">
@@ -39,4 +52,5 @@ TasksOptions.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   filterByTaskState: PropTypes.func.isRequired,
   setNewTaskActive: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 };

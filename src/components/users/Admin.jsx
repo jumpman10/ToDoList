@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, {useState} from 'react';
+import {useState} from 'react';
 import useLocalStorage from 'use-local-storage';
 import './admin.css';
 import {TasksOptions} from '../items/TasksOptions';
@@ -28,7 +27,8 @@ const Admin = () => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const matchesSearchTerm =
       item?.title.toLowerCase().startsWith(lowerCaseSearchTerm) ||
-      item?.createdAt.includes(searchTerm);
+      item?.createdAt.includes(searchTerm) ||
+      item?.expiration_date.includes(searchTerm);
     const matchesTaskState = filterState ? item.status === filterState : true;
     return matchesSearchTerm && matchesTaskState;
   });
@@ -43,7 +43,6 @@ const Admin = () => {
     setEliminateModal(true);
     setEliminateId(id);
   };
-  console.log(isLoading);
   return (
     <div className="container" data-theme={isDark ? 'dark' : 'light'}>
       <TasksOptions
@@ -51,6 +50,7 @@ const Admin = () => {
         searchTerm={searchTerm}
         filterByTaskState={filterByTaskState}
         setNewTaskActive={setNewTaskActive}
+        type="tasks"
       />
       {eliminateModal && (
         <ModalConfirm
@@ -63,6 +63,31 @@ const Admin = () => {
       )}
       <div className="tasks-container">
         <div className="tasks">
+          <div className="resp-tasks">
+            <div className="tasks-data">
+              <div className="task-title">
+                <h3>Título</h3>
+              </div>
+              <div className="task-title" style={{width: '80%'}}>
+                <h3 className="task-item" style={{width: '35%'}}>
+                  Descripción
+                </h3>
+                <h3 className="task-item" style={{width: '10%'}}>
+                  Fecha de creación
+                </h3>
+                <h3 className="task-item" style={{width: '10%'}}>
+                  Fecha de expiración
+                </h3>
+                <h3 className="task-item" style={{width: '15%'}}>
+                  Creador
+                </h3>
+                <h3 className="task-item" style={{width: '10%'}}>
+                  Estado
+                </h3>
+                <h3 className="task-item" style={{width: '20%'}}></h3>
+              </div>
+            </div>
+          </div>
           {newTaskActive && (
             <CreatTask
               createTask={createTask}

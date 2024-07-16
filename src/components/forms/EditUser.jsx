@@ -55,17 +55,16 @@ export const EditUser = ({userbyId, setEditUserActive, setEditId, idUser}) => {
             onChange={handleChange}
           />
         </div>
-        <div className="task-user-description">
-          <div className="description">
-            <input
-              type="text"
-              name="email"
-              style={{backgroundColor: 'transparent'}}
-              value={formData.email}
-              required
-              onChange={handleChange}
-            />
-          </div>
+        <div className="user-edit-description">
+          <input
+            className="title"
+            type="text"
+            name="email"
+            style={{backgroundColor: 'transparent'}}
+            value={formData.email}
+            required
+            onChange={handleChange}
+          />
         </div>
         <div className="checks">
           <div>

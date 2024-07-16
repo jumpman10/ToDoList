@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import './styles/login.css';
 import useLocalStorage from 'use-local-storage';
 import {useLoginMutation} from '../slices/loginApi';
@@ -9,11 +8,13 @@ const Login = () => {
   const navigate = useNavigate();
   const [login, {isLoading, isSuccess}] = useLoginMutation();
   const [isDark, setIsDark] = useLocalStorage('isDark', false);
+  const [loginError, setLoginError] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
   const handleChange = e => {
+    setLoginError(false);
     const {name, value} = e.target;
     setFormData({
       ...formData,
@@ -29,7 +30,7 @@ const Login = () => {
     try {
       await login(formData).unwrap();
     } catch (error) {
-      console.error('Error:', error);
+      setLoginError(true);
     }
   };
   useEffect(() => {
@@ -51,6 +52,10 @@ const Login = () => {
           <div className="loading">Loading...</div>
         ) : (
           <div className="login">
+            <img
+              src="todoLogorb.png"
+              alt="logo-todo"
+              style={{width: 90, height: 90}}></img>
             <h3>Email</h3>
             <input
               name="username"
@@ -65,6 +70,18 @@ const Login = () => {
               onChange={handleChange}
               type="password"
             />
+            {loginError && (
+              <span
+                style={{
+                  color: 'red',
+                  width: '90%',
+                  fontSize: '0.8em',
+                  textAlign: 'center',
+                  paddingBlock: 13,
+                }}>
+                La constraseña o el email son incorrectos*
+              </span>
+            )}
             <button type="submit" disabled={isLoading}>
               Ingresar
             </button>

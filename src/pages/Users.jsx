@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import PropTypes from 'prop-types';
 import {useFetchUsersQuery} from '../slices/usersApi';
 import './styles/users.css';
@@ -6,7 +6,7 @@ import {TasksOptions} from '../components/items/TasksOptions';
 import {EditUser} from '../components/forms/EditUser';
 import {CreateUser} from '../components/forms/CreateUser';
 import {ModalConfirm} from '../components/items/ModalConfirm';
-const Users = ({user, token, isDark}) => {
+const Users = ({isDark}) => {
   const {data: users, isLoading} = useFetchUsersQuery();
   const [searchTerm, setSearchTerm] = useState('');
   const [newUserActive, setNewUserActive] = useState(false);
@@ -19,19 +19,17 @@ const Users = ({user, token, isDark}) => {
     setSearchTerm(event.target.value);
   };
 
-  const filterByTaskState = state => {
+  const filterByUserType = state => {
     setFilterState(state);
   };
   const filteredData = users?.filter(item => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const matchesSearchTerm =
       item?.name.toLowerCase().startsWith(lowerCaseSearchTerm) ||
-      item?.emailt.includes(searchTerm);
-    return matchesSearchTerm;
+      item?.email.includes(searchTerm);
+    const matchesUsersTypes = filterState ? item.type === filterState : true;
+    return matchesSearchTerm && matchesUsersTypes;
   });
-  const createUser = () => {
-    setNewUserActive(false);
-  };
   const edit = id => {
     setEditUserActive(true);
     setEditId(id);
@@ -45,8 +43,9 @@ const Users = ({user, token, isDark}) => {
       <TasksOptions
         handleSearch={handleSearch}
         searchTerm={searchTerm}
-        filterByTaskState={filterByTaskState}
+        filterByTaskState={filterByUserType}
         setNewTaskActive={setNewUserActive}
+        type="users"
       />
       {eliminateModal && (
         <ModalConfirm
@@ -59,6 +58,24 @@ const Users = ({user, token, isDark}) => {
       )}
       <div className="tasks-container">
         <div className="tasks">
+          {!newUserActive && (
+            <div className="resp-tasks">
+              <div className="tasks-data">
+                <div className="task-title">
+                  <h3 className="task-item">Nombre</h3>
+                </div>
+                <div
+                  className="task-user-description"
+                  style={{alignItems: 'center'}}>
+                  <div className="description">
+                    <h3 className="task-item">Email</h3>
+                  </div>
+                  <h3 className="task-item">Tipo</h3>
+                  <div className="edit-area"></div>
+                </div>
+              </div>
+            </div>
+          )}
           {newUserActive && <CreateUser setNewUserActive={setNewUserActive} />}
           {!isLoading ? (
             filteredData.map((e, i) => (
@@ -123,9 +140,5 @@ const Users = ({user, token, isDark}) => {
 export default Users;
 
 Users.propTypes = {
-  user: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-  }),
-  token: PropTypes.string,
   isDark: PropTypes.bool.isRequired,
 };

@@ -105,5 +105,38 @@
     flex-direction: column;
     height: 85%;
     width: 100%;
+    align-items: center;
+  }
+  .create-buttons-container {
+    z-index: 100;
+    bottom: -22%;
+  }
+}
+
+@media only screen and (max-width: 796px) {
+  .create-container {
+    height: 320px;
+    flex-direction: column;
+  }
+  .checks {
+    width: 100%;
+    height: 25%;
+    margin-block: 0px;
+    align-items: center;
+  }
+  .task-create-title {
+    flex-direction: column;
+    height: 15%;
+    width: 100%;
+  }
+  .task-create-description {
+    flex-direction: column;
+    height: 85%;
+    width: 100%;
+    align-items: center;
+  }
+  .create-buttons-container {
+    z-index: 100;
+    bottom: -22%;
   }
 }

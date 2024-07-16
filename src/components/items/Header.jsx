@@ -25,7 +25,12 @@ export const Header = ({isDark, setIsDark, user, token, isLoading}) => {
   };
   return (
     <header data-theme={isDark ? 'dark' : 'light'}>
-      <div className="logo-img"></div>
+      <div className="logo-img">
+        <img
+          src="todoLogorb.png"
+          alt="logo-todo"
+          style={{width: 50, height: 50, marginLeft: '60%'}}></img>
+      </div>
       <Toggle isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
       {!isLoading && (
         <>

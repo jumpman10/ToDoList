@@ -43,11 +43,11 @@
 }
 .task-title {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 20%;
   height: 100%;
+  flex-direction: row;
 }
 .edit-btn {
   background-color: grey;
@@ -119,11 +119,6 @@
   background-color: transparent;
   font-style: italic;
 }
-.description textarea::placeholder,
-.task-title input::placeholder {
-  color: rgb(204, 202, 202);
-  font-weight: 400;
-}
 .description textarea:focus {
   border: 1px solid white;
   outline: none;
@@ -138,6 +133,27 @@
   width: 95%;
   height: 50px;
   margin: 10px auto;
+}
+.tasks-data {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 50px;
+  border-radius: 8px;
+  border-bottom-right-radius: 50px;
+  border-top-left-radius: 50px;
+  box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.4);
+  position: relative;
+  margin: 20px auto;
+  background-color: rgb(65, 65, 65);
+  justify-content: center;
+  align-items: center;
+}
+.task-item {
+  text-align: center;
+  font-style: italic;
 }
 @media only screen and (max-device-width: 480px) {
   .tasks-container {
@@ -203,8 +219,22 @@
     top: 3%;
     left: 3%;
   }
+  .resp-tasks {
+    width: 0px;
+    height: 0px;
+  }
+  .resp-tasks h3 {
+    color: transparent;
+  }
 }
 @media only screen and (max-width: 796px) {
+  .resp-tasks {
+    width: 0px;
+    height: 0px;
+  }
+  .resp-tasks h3 {
+    color: transparent;
+  }
   .tasks-container {
     height: 80%;
   }

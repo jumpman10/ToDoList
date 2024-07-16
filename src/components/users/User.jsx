@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, {useState} from 'react';
+import {useState} from 'react';
 import useLocalStorage from 'use-local-storage';
 import './user.css';
 import {TasksOptions} from '../items/TasksOptions';
@@ -24,7 +23,8 @@ const User = () => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const matchesSearchTerm =
       item?.title.toLowerCase().startsWith(lowerCaseSearchTerm) ||
-      item?.createdAt.includes(searchTerm);
+      item?.createdAt.includes(searchTerm) ||
+      item?.expiration_date.includes(searchTerm);
     const matchesTaskState = filterState ? item.status === filterState : true;
     return matchesSearchTerm && matchesTaskState;
   });
@@ -43,9 +43,34 @@ const User = () => {
         searchTerm={searchTerm}
         filterByTaskState={filterByTaskState}
         setNewTaskActive={setNewTaskActive}
+        type="tasks"
       />
       <div className="tasks-container">
         <div className="tasks">
+          <div className="resp-tasks">
+            <div className="tasks-data">
+              <div className="task-title">
+                <h3>Título</h3>
+              </div>
+              <div
+                className="task-title"
+                style={{width: '80%', justifyContent: 'space-evenly'}}>
+                <h3 className="task-item" style={{width: '35%'}}>
+                  Descripción
+                </h3>
+                <h3 className="task-item" style={{width: '10%'}}>
+                  Fecha de creación
+                </h3>
+                <h3 className="task-item" style={{width: '10%'}}>
+                  Fecha de expiración
+                </h3>
+                <h3 className="task-item" style={{width: '10%'}}>
+                  Estado
+                </h3>
+                <h3 className="task-item" style={{width: '20%'}}></h3>
+              </div>
+            </div>
+          </div>
           {newTaskActive && (
             <CreatTask
               createTask={createTask}

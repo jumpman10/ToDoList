@@ -22,6 +22,7 @@
   --primary-color: #4f689a;
   --complete-color: #499635;
   --inprocess-color: #949494;
+  --placeholder-color: #5a5a5a;
 }
 
 a {
@@ -79,6 +80,12 @@ input {
 textarea {
   color: var(--primary-text-color);
 }
+textarea::placeholder {
+  color: var(--placeholder-color);
+}
+input::placeholder {
+  color: var(--placeholder-color);
+}
 input:focus {
   outline: none;
 }
@@ -119,6 +126,7 @@ input[type='date']::-ms-clear {
   --primary-color: rgb(18, 28, 46);
   --complete-color: #1e4d13;
   --inprocess-color: #5a5a5a;
+  --placeholder-color: #bdbdbd;
 }
 
 @media only screen and (max-device-width: 480px) {

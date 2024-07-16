@@ -39,11 +39,11 @@ export const todoApi = createApi({
           dispatch(setTasks(data));
         } catch (error) {
           dispatch(setError(error.error || error.message));
+          console.log(error);
         } finally {
           dispatch(setLoading(false));
         }
       },
-      providesTags: ['create'],
     }),
     createTask: builder.mutation({
       query: task => {
