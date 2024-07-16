@@ -5,13 +5,14 @@ import {TasksOptions} from '../items/TasksOptions';
 import {CreatTask} from '../forms/CreatTask';
 import {useFetchTasksbyUserIdQuery} from '../../slices/todoApi';
 import {EditTask} from '../forms/EditTask';
-const User = () => {
+import PropTypes from 'prop-types';
+const User = ({user}) => {
   const [isDark] = useLocalStorage('isDark', false);
   const [searchTerm, setSearchTerm] = useState('');
   const [newTaskActive, setNewTaskActive] = useState(false);
   const [editTaskActive, setEditTaskActive] = useState(false);
   const [editId, setEditId] = useState('');
-  const {data: tasks, isLoading} = useFetchTasksbyUserIdQuery();
+  const {data: tasks, isLoading} = useFetchTasksbyUserIdQuery(user.id);
   const [filterState, setFilterState] = useState('');
   const handleSearch = event => {
     setSearchTerm(event.target.value);
@@ -35,7 +36,6 @@ const User = () => {
     setEditTaskActive(true);
     setEditId(id);
   };
-  console.log(isLoading);
   return (
     <div className="container" data-theme={isDark ? 'dark' : 'light'}>
       <TasksOptions
@@ -146,3 +146,9 @@ const User = () => {
 };
 
 export default User;
+
+User.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }),
+};

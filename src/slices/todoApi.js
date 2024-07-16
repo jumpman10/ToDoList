@@ -31,7 +31,7 @@ export const todoApi = createApi({
       providesTags: ['create'],
     }),
     fetchTasksbyUserId: builder.query({
-      query: () => '/tasks/user',
+      query: id => `/tasks/user/${id}`,
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         dispatch(setLoading(true));
         try {
@@ -44,10 +44,10 @@ export const todoApi = createApi({
           dispatch(setLoading(false));
         }
       },
+      providesTags: ['create'],
     }),
     createTask: builder.mutation({
       query: task => {
-        console.log('Sending credentials:', JSON.stringify(task));
         return {
           url: '/tasks',
           method: 'POST',

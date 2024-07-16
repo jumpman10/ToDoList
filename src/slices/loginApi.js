@@ -5,7 +5,6 @@ export const loginApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: headers => {
-      console.log(import.meta.env.VITE_API_URL);
       headers.set('Content-Type', 'application/json');
       return headers;
     },

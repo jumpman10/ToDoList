@@ -34,7 +34,6 @@ export const usersApi = createApi({
     }),
     createUser: builder.mutation({
       query: user => {
-        console.log(user);
         return {
           url: '/auth/signup',
           method: 'POST',
@@ -53,7 +52,6 @@ export const usersApi = createApi({
     }),
     editUser: builder.mutation({
       query: user => {
-        console.log(user);
         return {
           url: `/users/${user.id}`,
           method: 'PUT',
