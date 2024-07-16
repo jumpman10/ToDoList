@@ -11,7 +11,7 @@ const Home = props => {
       ) : props.user.type === 'admin' ? (
         <Admin />
       ) : (
-        <User />
+        <User user={props.user} />
       )}
     </div>
   );

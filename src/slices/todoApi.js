@@ -4,7 +4,7 @@ import {setTasks, addTask, updateTask, setLoading, setError} from './todoSlice';
 const token = window.localStorage.getItem('token');
 export const todoApi = createApi({
   reducerPath: 'todoApi',
-  tagTypes: ['create'],
+  tagTypes: ['create', 'delete'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3000/api/v1',
     prepareHeaders: headers => {
@@ -29,7 +29,22 @@ export const todoApi = createApi({
           dispatch(setLoading(false));
         }
       },
-      providesTags: ['create', 'edit'],
+      providesTags: ['create'],
+    }),
+    fetchTasksbyUserId: builder.query({
+      query: () => '/tasks/user',
+      async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+        dispatch(setLoading(true));
+        try {
+          const {data} = await queryFulfilled;
+          dispatch(setTasks(data));
+        } catch (error) {
+          dispatch(setError(error.error || error.message));
+        } finally {
+          dispatch(setLoading(false));
+        }
+      },
+      providesTags: ['create'],
     }),
     createTask: builder.mutation({
       query: task => {
@@ -52,7 +67,6 @@ export const todoApi = createApi({
     }),
     editTask: builder.mutation({
       query: task => {
-        console.log(task, 'hoña');
         return {
           url: `/tasks/${task.id}`,
           method: 'PUT',
@@ -67,10 +81,35 @@ export const todoApi = createApi({
           dispatch(setError(error.error || error.message));
         }
       },
-      invalidatesTags: ['edit'],
+      invalidatesTags: ['create'],
+    }),
+    deletebyId: builder.mutation({
+      query: id => {
+        return {
+          url: `/tasks/${id}`,
+          method: 'DELETE',
+        };
+      },
+      async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+        dispatch(setLoading(true));
+        try {
+          const {data} = await queryFulfilled;
+          dispatch(setTasks(data));
+        } catch (error) {
+          dispatch(setError(error.error || error.message));
+        } finally {
+          dispatch(setLoading(false));
+        }
+      },
+      invalidatesTags: ['create'],
     }),
   }),
 });
 
-export const {useFetchTasksQuery, useCreateTaskMutation, useEditTaskMutation} =
-  todoApi;
+export const {
+  useFetchTasksQuery,
+  useCreateTaskMutation,
+  useEditTaskMutation,
+  useFetchTasksbyUserIdQuery,
+  useDeletebyIdMutation,
+} = todoApi;

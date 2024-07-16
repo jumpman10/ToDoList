@@ -1,0 +1,46 @@
+.users-container {
+  width: 100vw;
+  height: calc(100vh - 50px);
+  background-color: var(--background-color);
+}
+.user {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  height: 50px;
+  border-radius: 8px;
+  border-bottom-right-radius: 50px;
+  border-top-left-radius: 50px;
+  box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.4);
+  position: relative;
+  background-color: var(--primary-color);
+}
+.description h2 {
+  width: 97%;
+  height: 80%;
+  resize: none;
+  padding: 5px;
+  border: none;
+  font-size: 0.9em;
+  text-align: justify;
+  background-color: transparent;
+  font-style: italic;
+  text-transform: lowercase;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .user {
+    flex-direction: column;
+    height: 240px;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 25px;
+  }
+}
+@media only screen and (max-width: 796px) {
+  .user {
+    height: 200px;
+    flex-direction: column;
+  }
+}

@@ -87,6 +87,7 @@ export const EditTask = ({taskbyId, setEditTaskActive, setEditId, idTask}) => {
               value="pending"
               required
               onChange={handleChange}
+              checked={formData.status === 'pending'}
             />
           </div>
           <div>
@@ -97,6 +98,7 @@ export const EditTask = ({taskbyId, setEditTaskActive, setEditId, idTask}) => {
               value="completed"
               required
               onChange={handleChange}
+              checked={formData.status === 'completed'}
             />
           </div>
         </div>

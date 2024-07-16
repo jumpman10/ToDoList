@@ -76,9 +76,10 @@
   color: white;
   background-color: transparent;
 }
-.task-description {
+.task-user-description {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   width: 80%;
   height: 100%;
 }
@@ -99,20 +100,6 @@
   text-transform: capitalize;
   color: var(--secondary-text-color);
   font-weight: bold;
-}
-.task-userdata {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 15%;
-  height: 100%;
-  color: var(--secondary-text-color);
-}
-.task-userdata h2,
-.task-userdata h3 {
-  margin-block: 5px;
-  font-style: italic;
 }
 .description {
   display: flex;
@@ -164,7 +151,7 @@
   }
   .description {
     width: 100%;
-    height: 65%;
+    height: 45%;
   }
   .taskState {
     height: 15%;
@@ -176,23 +163,96 @@
     flex-direction: row;
   }
   .edit-btn {
-    padding-block: 0.7px;
-    padding-inline: 5px;
+    height: 60%;
+    width: 40%;
   }
   .description textarea {
     font-size: 0.7em;
     width: 95%;
     height: 92%;
+    text-align: center;
   }
   .task-title {
     flex-direction: column;
+    height: 15%;
+    width: 100%;
   }
-  .task-description {
-    flex-direction: column-reverse;
+  .task-user-description {
+    flex-direction: column;
+    height: 85%;
+    width: 100%;
+  }
+  .task {
+    flex-direction: column;
   }
   .task,
   .edit-task {
     height: 240px;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 25px;
+  }
+  .date {
+    text-align: center;
+    width: 100%;
+    font-size: 0.8em;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding-inline: 0px;
+  }
+  .task-title button {
+    top: 3%;
+    left: 3%;
+  }
+}
+@media only screen and (max-width: 796px) {
+  .tasks-container {
+    height: 80%;
+  }
+  .title {
+    width: 100%;
+    font-size: 1.1em;
+    padding-inline: 0px;
+    text-align: center;
+  }
+  .description {
+    width: 100%;
+    height: 45%;
+  }
+  .taskState {
+    height: 15%;
+    width: 100%;
+  }
+  .edit-area {
+    height: 20%;
+    width: 100%;
+    flex-direction: row;
+  }
+  .edit-btn {
+    height: 60%;
+    width: 40%;
+  }
+  .description textarea {
+    font-size: 0.7em;
+    width: 95%;
+    height: 92%;
+    text-align: center;
+  }
+  .task-title {
+    flex-direction: column;
+    height: 15%;
+    width: 100%;
+  }
+  .task-user-description {
+    flex-direction: column;
+    height: 85%;
+    width: 100%;
+  }
+  .task {
+    flex-direction: column;
+  }
+  .task,
+  .edit-task {
+    height: 200px;
     border-bottom-right-radius: 25px;
     border-top-left-radius: 25px;
   }

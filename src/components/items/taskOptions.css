@@ -11,11 +11,15 @@
 .create-button-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 20%;
   height: 100%;
 }
 .create-button-container button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+.create-button-container a {
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }
@@ -66,6 +70,7 @@
     height: 33%;
     width: 100%;
     justify-content: space-around;
+    flex-direction: row;
   }
   .search-container {
     height: 33%;
@@ -76,5 +81,24 @@
   }
   .create-button-container button {
     padding-block: 1px;
+  }
+}
+@media only screen and (max-width: 796px) {
+  .tasks-header {
+    height: 20%;
+    flex-direction: column-reverse;
+  }
+  .search-container {
+    height: 33%;
+    width: 100%;
+  }
+  .create-button-container {
+    height: 30%;
+    width: 100%;
+  }
+  .order-container {
+    height: 33%;
+    width: 100%;
+    justify-content: space-around;
   }
 }

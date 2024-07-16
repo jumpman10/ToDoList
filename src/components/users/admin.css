@@ -7,10 +7,54 @@
   height: 40%;
   font-size: 0.7em;
 }
+.task-userdata {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 100%;
+  color: var(--secondary-text-color);
+}
+.task-userdata h2,
+.task-userdata h3 {
+  margin-block: 5px;
+  font-style: italic;
+}
+.task-description {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 100%;
+}
 
 @media only screen and (max-device-width: 480px) {
   .delete-btn {
-    padding-block: 0.7px;
-    padding-inline: 5px;
+    height: 60%;
+    width: 40%;
+  }
+  .task-description {
+    flex-direction: column;
+    height: 85%;
+    width: 100%;
+  }
+  .task-userdata {
+    width: 100%;
+    height: 10%;
+  }
+}
+@media only screen and (max-width: 796px) {
+  .task-description {
+    flex-direction: column;
+    height: 85%;
+    width: 100%;
+  }
+  .task-userdata {
+    width: 100%;
+    height: 10%;
+  }
+  .delete-btn {
+    height: 60%;
+    width: 40%;
   }
 }

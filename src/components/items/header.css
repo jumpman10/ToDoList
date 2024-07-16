@@ -20,3 +20,22 @@ header {
   height: 50px;
   padding-inline: 5%;
 }
+@media only screen and (max-width: 796px) {
+  .auth {
+    height: 70%;
+  }
+  .auth h1 {
+    font-size: 0.9em;
+  }
+  .auth button {
+    padding-block: 0px;
+    padding-inline: 8px;
+    height: 90%;
+    margin-inline: 4px;
+  }
+}
+@media only screen and (max-width: 660px) {
+  .auth h1 {
+    font-size: 0.7em;
+  }
+}

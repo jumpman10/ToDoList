@@ -13,6 +13,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const user = useSelector(state => state.login.user);
   const token = useSelector(state => state.login.token);
+
   useEffect(() => {
     if (!user && !token) {
       setIsLoading(true);
@@ -48,7 +49,10 @@ const App = () => {
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/users" element={<Users />} user={user} token={token} />
+          <Route
+            path="/users"
+            element={<Users user={user} token={token} isDark={isDark} />}
+          />
         </Routes>
       </main>
       <footer></footer>

@@ -1,7 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import './modalConfirm.css';
-export const ModalConfirm = ({title, text, confirmFunction, closeModal}) => {
+import {useDeletebyIdMutation} from '../../slices/todoApi';
+import {useDeleteUserMutation} from '../../slices/usersApi';
+export const ModalConfirm = ({title, text, taskId, closeModal, type}) => {
+  const [deleteTask] = useDeletebyIdMutation();
+  const [deleteUser] = useDeleteUserMutation();
+  const deleteTaskbyId = () => {
+    if (type === 'user') {
+      deleteUser(taskId);
+    } else {
+      deleteTask(taskId);
+    }
+    closeModal(false);
+  };
   return (
     <div className="modal-container">
       <div className="modal">
@@ -12,7 +23,7 @@ export const ModalConfirm = ({title, text, confirmFunction, closeModal}) => {
           <h2>{text}</h2>
         </div>
         <div className="modal-buttons">
-          <button name="confirm" onClick={() => confirmFunction()}>
+          <button name="confirm" onClick={() => deleteTaskbyId()}>
             Aceptar
           </button>
           <button name="cancel" onClick={() => closeModal(false)}>
@@ -27,6 +38,7 @@ export const ModalConfirm = ({title, text, confirmFunction, closeModal}) => {
 ModalConfirm.propTypes = {
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  confirmFunction: PropTypes.func.isRequired,
+  taskId: PropTypes.number.isRequired,
   closeModal: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 };

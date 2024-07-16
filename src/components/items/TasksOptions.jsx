@@ -4,8 +4,6 @@ import './taskOptions.css';
 import PropTypes from 'prop-types';
 
 export const TasksOptions = ({
-  sortByDate,
-  sortAlphabetically,
   searchTerm,
   handleSearch,
   filterByTaskState,
@@ -18,8 +16,6 @@ export const TasksOptions = ({
       </div>
       <div className="order-container">
         <h3>Orden por :</h3>
-        <button onClick={() => sortAlphabetically()}>A-Z</button>
-        <button onClick={() => sortByDate()}>Fecha</button>
         <button onClick={() => filterByTaskState('completed')}>
           Completadas
         </button>
@@ -39,8 +35,6 @@ export const TasksOptions = ({
 };
 
 TasksOptions.propTypes = {
-  sortByDate: PropTypes.func.isRequired,
-  sortAlphabetically: PropTypes.func.isRequired,
   searchTerm: PropTypes.string.isRequired,
   handleSearch: PropTypes.func.isRequired,
   filterByTaskState: PropTypes.func.isRequired,

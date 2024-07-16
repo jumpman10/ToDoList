@@ -14,6 +14,7 @@ const Admin = () => {
   const [newTaskActive, setNewTaskActive] = useState(false);
   const [editTaskActive, setEditTaskActive] = useState(false);
   const [eliminateModal, setEliminateModal] = useState(false);
+  const [eliminateId, setEliminateId] = useState('');
   const [editId, setEditId] = useState('');
   const [filterState, setFilterState] = useState('');
   const handleSearch = event => {
@@ -31,33 +32,22 @@ const Admin = () => {
     const matchesTaskState = filterState ? item.status === filterState : true;
     return matchesSearchTerm && matchesTaskState;
   });
-  const sortAlphabetically = () => {
-    const sortedData = [...filteredData].sort((a, b) =>
-      a.title.localeCompare(b.title),
-    );
-    filteredData.push(sortedData);
-  };
-  const sortByDate = () => {
-    const sortedData = filteredData.sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-    );
-    filteredData.push(sortedData);
-  };
   const createTask = () => {
     setNewTaskActive(false);
-    console.log('hola');
   };
   const edit = id => {
     setEditTaskActive(true);
     setEditId(id);
+  };
+  const eliminateTask = id => {
+    setEliminateModal(true);
+    setEliminateId(id);
   };
   return (
     <div className="container" data-theme={isDark ? 'dark' : 'light'}>
       <TasksOptions
         handleSearch={handleSearch}
         searchTerm={searchTerm}
-        sortAlphabetically={sortAlphabetically}
-        sortByDate={sortByDate}
         filterByTaskState={filterByTaskState}
         setNewTaskActive={setNewTaskActive}
       />
@@ -66,10 +56,10 @@ const Admin = () => {
           title="Eliminar"
           text="¿Desea eliminar esta tarea?"
           closeModal={setEliminateModal}
-          confirmFunction={setEliminateModal}
+          taskId={eliminateId}
+          type="task"
         />
       )}
-
       <div className="tasks-container">
         <div className="tasks">
           {newTaskActive && (
@@ -80,7 +70,7 @@ const Admin = () => {
           )}
           {!isLoading ? (
             filteredData.map((e, i) => (
-              <>
+              <div key={i}>
                 {editTaskActive && editId === e.id && (
                   <EditTask
                     setEditTaskActive={setEditTaskActive}
@@ -89,7 +79,7 @@ const Admin = () => {
                     setEditId={setEditId}
                   />
                 )}
-                <div key={i} className="edit-task">
+                <div className="edit-task">
                   <div
                     className="task"
                     style={{
@@ -138,14 +128,14 @@ const Admin = () => {
                         </button>
                         <button
                           className="delete-btn"
-                          onClick={() => setEliminateModal(true)}>
+                          onClick={() => eliminateTask(e.id)}>
                           Eliminar
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ))
           ) : (
             <div className="loading"> </div>
