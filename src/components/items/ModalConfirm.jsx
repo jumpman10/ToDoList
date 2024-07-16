@@ -3,19 +3,35 @@ import './modalConfirm.css';
 import {useDeletebyIdMutation} from '../../slices/todoApi';
 import {useDeleteUserMutation} from '../../slices/usersApi';
 export const ModalConfirm = ({title, text, taskId, closeModal, type}) => {
-  const [deleteTask] = useDeletebyIdMutation();
-  const [deleteUser] = useDeleteUserMutation();
+  const [deleteTask, {isLoading: loadingTask}] = useDeletebyIdMutation();
+  const [deleteUser, {isLoading: loadingUser}] = useDeleteUserMutation();
   const deleteTaskbyId = () => {
     if (type === 'user') {
-      deleteUser(taskId);
+      try {
+        deleteUser(taskId);
+        if (!loadingTask) {
+          alert('Eliminaste al usuario!');
+        }
+      } catch (error) {
+        alert('Algo falló intentalo nuevamente', error);
+      }
     } else {
-      deleteTask(taskId);
+      try {
+        deleteTask(taskId);
+        if (!loadingUser) {
+          alert('Eliminaste la tarea!');
+        }
+      } catch (error) {
+        alert('Algo falló intentalo nuevamente', error);
+      }
     }
     closeModal(false);
   };
   return (
     <div className="modal-container">
       <div className="modal">
+        {loadingTask ||
+          (loadingUser && <div className="loading">Loading...</div>)}
         <div className="modal-title">
           <h1>{title}</h1>
         </div>

@@ -1,12 +1,11 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {setTasks, addTask, updateTask, setLoading, setError} from './todoSlice';
-
 const token = window.localStorage.getItem('token');
 export const todoApi = createApi({
   reducerPath: 'todoApi',
   tagTypes: ['create', 'delete'],
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api/v1',
+    baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: headers => {
       headers.set('Content-Type', 'application/json');
       if (token) {

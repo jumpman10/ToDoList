@@ -7,7 +7,7 @@ export const usersApi = createApi({
   reducerPath: 'usersApi',
   tagTypes: ['tag1'],
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api/v1',
+    baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: headers => {
       headers.set('Content-Type', 'application/json');
       if (token) {

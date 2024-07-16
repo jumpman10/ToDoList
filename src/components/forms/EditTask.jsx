@@ -3,7 +3,7 @@ import {useEditTaskMutation} from '../../slices/todoApi';
 import PropTypes from 'prop-types';
 
 export const EditTask = ({taskbyId, setEditTaskActive, setEditId, idTask}) => {
-  const [editTask, {error}] = useEditTaskMutation();
+  const [editTask, {isLoading}] = useEditTaskMutation();
   const [formData, setFormData] = useState({
     title: taskbyId.title,
     createdAt: taskbyId.createdAt,
@@ -31,13 +31,15 @@ export const EditTask = ({taskbyId, setEditTaskActive, setEditId, idTask}) => {
     }
     try {
       editTask({obj: formData, id: idTask});
-      setEditTaskActive(false);
-      setEditId('');
+      if (!isLoading) {
+        alert('Editaste la tarea con existo!');
+        setEditTaskActive(false);
+        setEditId('');
+      }
     } catch (error) {
-      console.error('Error:', error);
+      alert('Algo falló intentalo nuevamente', error);
     }
   };
-  console.log(error);
   const close = () => {
     setEditTaskActive(false);
     setEditId('');
@@ -53,6 +55,7 @@ export const EditTask = ({taskbyId, setEditTaskActive, setEditId, idTask}) => {
               : 'var(--complete-color)',
           margin: '15px auto',
         }}>
+        {isLoading && <div className="loading">Loading...</div>}
         <div className="task-create-title">
           <input
             className="title"

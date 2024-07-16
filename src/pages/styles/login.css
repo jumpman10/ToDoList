@@ -36,7 +36,7 @@
 }
 .loading {
   width: 100%;
-  height: calc(100vh - 50px);
+  height: 100%;
   background-color: var(--background-color);
   display: flex;
   flex-direction: column;
@@ -45,4 +45,7 @@
   color: var(--secondary-background-color);
   z-index: 100;
   position: absolute;
+  font-size: 2em;
+  font-style: italic;
+  font-weight: bold;
 }

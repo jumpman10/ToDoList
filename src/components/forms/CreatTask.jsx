@@ -4,7 +4,7 @@ import './createTask.css';
 import PropTypes from 'prop-types';
 import {useCreateTaskMutation} from '../../slices/todoApi';
 export const CreatTask = ({createTask, setNewTaskActive}) => {
-  const [createNewTask] = useCreateTaskMutation();
+  const [createNewTask, {isLoading, isError}] = useCreateTaskMutation();
   const [formData, setFormData] = useState({
     title: '',
     expiration_date: '',
@@ -37,7 +37,12 @@ export const CreatTask = ({createTask, setNewTaskActive}) => {
     }
     createTask();
     createNewTask(formData);
-    setNewTaskActive(false);
+    if (!isLoading) {
+      alert('Creaste una nueva tarea!');
+      setNewTaskActive(false);
+    } else if (isError) {
+      alert('Algo falló intentalo nuevamente');
+    }
   };
   return (
     <div className="create-container">
@@ -51,6 +56,7 @@ export const CreatTask = ({createTask, setNewTaskActive}) => {
               : 'var(--complete-color)',
           margin: '15px auto',
         }}>
+        {isLoading && <div className="loading">Loading...</div>}
         <div className="task-create-title">
           <input
             className="title"

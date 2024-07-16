@@ -1,11 +1,11 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {setUser, setLoading, setError} from './loginSlice';
-
 export const loginApi = createApi({
   reducerPath: 'loginApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api/v1',
+    baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: headers => {
+      console.log(import.meta.env.VITE_API_URL);
       headers.set('Content-Type', 'application/json');
       return headers;
     },

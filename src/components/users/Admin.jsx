@@ -43,6 +43,7 @@ const Admin = () => {
     setEliminateModal(true);
     setEliminateId(id);
   };
+  console.log(isLoading);
   return (
     <div className="container" data-theme={isDark ? 'dark' : 'light'}>
       <TasksOptions
@@ -69,7 +70,7 @@ const Admin = () => {
             />
           )}
           {!isLoading ? (
-            filteredData.map((e, i) => (
+            filteredData?.map((e, i) => (
               <div key={i}>
                 {editTaskActive && editId === e.id && (
                   <EditTask

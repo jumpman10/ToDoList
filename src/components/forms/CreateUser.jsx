@@ -4,7 +4,7 @@ import './createUser.css';
 import {useCreateUserMutation} from '../../slices/usersApi';
 
 export const CreateUser = ({setNewUserActive}) => {
-  const [createUser, {error}] = useCreateUserMutation();
+  const [createUser, {isLoading}] = useCreateUserMutation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,12 +39,14 @@ export const CreateUser = ({setNewUserActive}) => {
         password: formData.password,
         type: formData.type,
       });
-      setNewUserActive(false);
+      if (!isLoading) {
+        alert('Creaste un nuevo usuario!');
+        setNewUserActive(false);
+      }
     } catch (error) {
-      console.error('Error:', error);
+      alert('Algo falló intentalo nuevamente', error);
     }
   };
-  console.log(error);
   const close = () => {
     setNewUserActive(false);
   };
@@ -55,6 +57,7 @@ export const CreateUser = ({setNewUserActive}) => {
         style={{
           margin: '15px auto',
         }}>
+        {isLoading && <div className="loading">Loading...</div>}
         <div className="create-input">
           <h3>Nombre</h3>
           <input

@@ -35,6 +35,7 @@ const User = () => {
     setEditTaskActive(true);
     setEditId(id);
   };
+  console.log(isLoading);
   return (
     <div className="container" data-theme={isDark ? 'dark' : 'light'}>
       <TasksOptions
@@ -52,8 +53,8 @@ const User = () => {
             />
           )}
           {!isLoading ? (
-            filteredData.map((e, i) => (
-              <>
+            filteredData?.map((e, i) => (
+              <div key={i}>
                 {editTaskActive && editId === e.id && (
                   <EditTask
                     setEditTaskActive={setEditTaskActive}
@@ -62,7 +63,7 @@ const User = () => {
                     setEditId={setEditId}
                   />
                 )}
-                <div key={i} className="edit-task">
+                <div className="edit-task">
                   <div
                     className="task"
                     style={{
@@ -108,7 +109,7 @@ const User = () => {
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ))
           ) : (
             <div className="loading">Loading...</div>

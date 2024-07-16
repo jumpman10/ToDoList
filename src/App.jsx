@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Home, Login, Users} from './pages';
 import './App.css';
 import useLocalStorage from 'use-local-storage';
@@ -28,30 +28,45 @@ const App = () => {
   }, [dispatch, user, token]);
   return (
     <BrowserRouter>
-      <Header
-        isDark={isDark}
-        setIsDark={setIsDark}
-        user={user}
-        token={token}
-        isLoading={isLoading}
-      />
+      {token && (
+        <Header
+          isDark={isDark}
+          setIsDark={setIsDark}
+          user={user}
+          token={token}
+          isLoading={isLoading}
+        />
+      )}
       <main>
         <Routes>
           <Route
             path="/"
             element={
-              <Home
-                user={user}
-                token={token}
-                isLoading={isLoading}
-                isDark={isDark}
-              />
+              token ? (
+                <Home
+                  user={user}
+                  token={token}
+                  isLoading={isLoading}
+                  isDark={isDark}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={!token ? <Login /> : <Navigate to="/" />}
+          />
           <Route
             path="/users"
-            element={<Users user={user} token={token} isDark={isDark} />}
+            element={
+              token ? (
+                <Users user={user} token={token} isDark={isDark} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
         </Routes>
       </main>

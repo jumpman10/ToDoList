@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {useEditUserMutation} from '../../slices/usersApi';
 import './editUser.css';
 export const EditUser = ({userbyId, setEditUserActive, setEditId, idUser}) => {
-  const [editUser, {error: error2}] = useEditUserMutation();
+  const [editUser, {isLoading}] = useEditUserMutation();
   const [formData, setFormData] = useState({
     name: userbyId.name,
     email: userbyId.email,
@@ -24,10 +24,13 @@ export const EditUser = ({userbyId, setEditUserActive, setEditId, idUser}) => {
     }
     try {
       editUser({obj: formData, id: idUser});
-      setEditUserActive(false);
-      setEditId('');
+      if (!isLoading) {
+        alert('Editaste el usuario con éxito!');
+        setEditUserActive(false);
+        setEditId('');
+      }
     } catch (error) {
-      console.error('Error:', error2);
+      alert('Algo falló intentalo nuevamente', error);
     }
   };
   const close = () => {
@@ -41,6 +44,7 @@ export const EditUser = ({userbyId, setEditUserActive, setEditId, idUser}) => {
         style={{
           margin: '15px auto',
         }}>
+        {isLoading && <div className="loading">Loading...</div>}
         <div className="user-edit-title">
           <input
             className="title"

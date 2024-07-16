@@ -4,10 +4,11 @@ import './styles/login.css';
 import useLocalStorage from 'use-local-storage';
 import {useLoginMutation} from '../slices/loginApi';
 import {useNavigate} from 'react-router-dom';
+import {Toggle} from '../components/buttons/Toggle';
 const Login = () => {
   const navigate = useNavigate();
   const [login, {isLoading, isSuccess}] = useLoginMutation();
-  const [isDark] = useLocalStorage('isDark', false);
+  const [isDark, setIsDark] = useLocalStorage('isDark', false);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -37,34 +38,40 @@ const Login = () => {
     }
   }, [isSuccess, navigate]);
   return (
-    <form
-      data-theme={isDark ? 'dark' : 'light'}
-      onSubmit={handleSubmit}
-      className="login-container">
-      {isLoading ? (
-        <div className="loading">Loading...</div>
-      ) : (
-        <div className="login">
-          <h3>Email</h3>
-          <input
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            type="text"
-          />
-          <h3>Contraseña</h3>
-          <input
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            type="password"
-          />
-          <button type="submit" disabled={isLoading}>
-            Ingresar
-          </button>
-        </div>
-      )}
-    </form>
+    <>
+      <header data-theme={isDark ? 'dark' : 'light'}>
+        <div className="logo-img"></div>
+        <Toggle isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
+      </header>
+      <form
+        data-theme={isDark ? 'dark' : 'light'}
+        onSubmit={handleSubmit}
+        className="login-container">
+        {isLoading ? (
+          <div className="loading">Loading...</div>
+        ) : (
+          <div className="login">
+            <h3>Email</h3>
+            <input
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              type="text"
+            />
+            <h3>Contraseña</h3>
+            <input
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              type="password"
+            />
+            <button type="submit" disabled={isLoading}>
+              Ingresar
+            </button>
+          </div>
+        )}
+      </form>
+    </>
   );
 };
 
